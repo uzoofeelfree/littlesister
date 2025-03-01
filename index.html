@@ -491,10 +491,10 @@
                     <div class="indented-text_2 it">낱말을 삭제하고 한 어휘의 <b>2차적 의미를</b></div><br>
                     <div class="indented-text_5 it">제거함으로</div><br>
                     <div class="indented-text_1 it">가능했다. 한 가지 예를 들어보자.</div><br>
-                    <div class="indented-text_3 it">신어에는 아직도 ‘free(자유로운)'라는</div><br>
+                    <div class="indented-text_3 it">신어에는 아직도 'free(자유로운)'라는</div><br>
                     <div class="indented-text_5 it">낱말이 남아 있다. 하지만 이 말은</div><br>
                     <div class="indented-text_1 it"> 'This dog is free from lice. (이 개에는 이가</div><br>
-                    <div class="indented-text_0 it">없다.)’라든지</div><br>
+                    <div class="indented-text_0 it">없다.)'라든지</div><br>
                     <div class="indented-text_0 it"> 'This field is free from weeds.</div><br>
                     <div class="indented-text_3 it"> (이 밭에는 잡초가 없다.)'라는 식의</div><br>
                     <div class="indented-text_0 it">문장에만 사용될 수 있을 뿐,</div><br>
@@ -913,7 +913,6 @@ overHtml.addEventListener('scroll', () => {
         const isMobileOrTablet = /Mobi|Android|iPad|iPhone/i.test(navigator.userAgent);
 
         if (isMobileOrTablet) {
-            // 모바일 및 태블릿 기기에서 터치 이벤트로 카메라 이동
             let touchStartX = 0;
             let touchStartY = 0;
 
@@ -926,21 +925,21 @@ overHtml.addEventListener('scroll', () => {
                 const touchEndX = event.touches[0].clientX;
                 const touchEndY = event.touches[0].clientY;
 
-                const deltaX = (touchEndX - touchStartX) * 0.05; // 가로 이동 양 조정
-                const deltaY = (touchEndY - touchStartY) * 0.05; // 세로 이동 양 조정
+                // 감도를 0.03에서 0.3으로 10배 증가
+                const deltaX = -(touchEndX - touchStartX) * 0.08; 
+                const deltaY = (touchEndY - touchStartY) * 0.08;
 
-                camera.position.x += deltaX; // 카메라 x축 이동
-                camera.position.x += deltaY; // 카메라 z축 동
-                overHtml.scrollLeft += deltaX;
+                camera.position.x += deltaX; // 가로 이동
+                overHtml.scrollLeft += deltaX * 10; // HTML 스크롤 동기화
+
                 touchStartX = touchEndX;
                 touchStartY = touchEndY;
 
-                // 이동한 정도를 콘솔에 출력
-                console.log(`Camera Position - X: ${camera.position.x}, Y: ${camera.position.y}, Z: ${camera.position.z}`);
+                event.preventDefault();
             }
 
-            window.addEventListener('touchstart', handleTouchStart);
-            window.addEventListener('touchmove', handleTouchMove);
+            window.addEventListener('touchstart', handleTouchStart, { passive: false });
+            window.addEventListener('touchmove', handleTouchMove, { passive: false });
         } else {
             // 데스크톱에서 휠 이벤트로 카메라 이동
             function handleScroll(event) {
