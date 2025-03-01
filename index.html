@@ -35,8 +35,11 @@
     }
     @media (max-width: 768px) {
       .custom-cursor {
-        display: none;
+        display: none !important; /* !important를 추가하여 우선순위 높임 */
         background-color: transparent;
+      }
+      body {
+        cursor: auto; /* 모바일에서는 기본 커서 표시 */
       }
     }
     .overHtml{
