@@ -802,7 +802,7 @@ Marna Yaguello, 『언어와 여성』 , 강주헌 옮김, 여성사, 1994, P5-6
     <!-- 안녕하세요 테트 글입니다.... -->
 </div>
 
-<div class="closeMentBtn" style=" font-family: sans-serif; display: none; position: absolute; color: white; font-weight: 300; font-size: 80px; bottom: 20px; right: 20px; z-index: 99999999999; cursor: pointer;">X</div>
+<div class="closeMentBtn" style=" font-family: sans-serif; display: none; position: absolute; color: rgb(70, 70, 70); font-weight: 400; font-size: 30px; bottom: 25vh; left: 50%; transform: translate(-50%, -50%); z-index: 99999999999; cursor: pointer;">X</div>
 
 <script>
 const overHtml = document.querySelector('.overHtml');
@@ -838,8 +838,10 @@ setInterval(() => {
     //     box.scrollLeft += event.deltaY; // 세로 크롤을 가로 스크롤로 변환
     // });
 
-    document.querySelector('.closeMentBtn').addEventListener('click', () => {
-        // document.querySelector('.closeMentBtn').style.display = 'none';
+    document.querySelector('.closeMentBtn').addEventListener('click', (event) => {
+        // 이벤트 전파 중단
+        event.stopPropagation();
+        
         document.querySelector('.sphereMent').style.display = 'none';
         document.querySelector('.sphereMent1').style.display = 'none';
         document.querySelector('.sphereMent2').style.display = 'none';
@@ -847,20 +849,27 @@ setInterval(() => {
         document.querySelector('.closeMentBtn').style.display = 'none';
     });
 
-    document.querySelector('.sphereMent').addEventListener('click', () => {
+    window.addEventListener('click', (event) => {
+    const sphereMent = document.querySelector('.sphereMent');
+    if (sphereMent && sphereMent.style.display === 'flex') {
+        sphereMent.style.display = 'none';
         document.querySelector('.sphereMent').style.display = 'none';
-    });
-
-    document.querySelector('.sphereMent1').addEventListener('click', () => {
         document.querySelector('.sphereMent1').style.display = 'none';
-    });
-
-    document.querySelector('.sphereMent2').addEventListener('click', () => {
         document.querySelector('.sphereMent2').style.display = 'none';
+        document.querySelector('.sphereMent3').style.display = 'none';
+    }
+});
+
+    document.querySelector('.sphereMent1').addEventListener('click', (event) => {
+        event.stopPropagation();
     });
 
-    document.querySelector('.sphereMent3').addEventListener('click', () => {
-        document.querySelector('.sphereMent3').style.display = 'none';
+    document.querySelector('.sphereMent2').addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+
+    document.querySelector('.sphereMent3').addEventListener('click', (event) => {
+        event.stopPropagation();
     });
 
     document.querySelector('#overTextBox-8').addEventListener('mouseover', () => {
@@ -1804,8 +1813,8 @@ window.addEventListener('click', handleClick);
 function createVerticalTextPlane(text, position, fontSize = 40) {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
-    canvas.width = 256;
-    canvas.height = 1024;
+    canvas.width = 300;
+    canvas.height = 1300;
     context.fillStyle = 'rgba(0, 0, 0, 0.0)';
     context.fillRect(0, 0, canvas.width, canvas.height);
     context.fillStyle = 'white';
@@ -1841,9 +1850,9 @@ function createVerticalTextPlane(text, position, fontSize = 40) {
 
 
 // 사용 예시
-createVerticalTextPlane("말이 함의하는 의미는 정당성을 인정받으며,  ", { x: 950, y: 4, z: 0 });
-createVerticalTextPlane("인정받으며, 권위에 의해 승인된 결과로 여겨지므로,", { x: 954, y: 4, z: 0 });
-createVerticalTextPlane("여겨지므로, 언어는 집단에 의해 동의 받고,", { x: 958, y: 4, z: 0 });
+createVerticalTextPlane("말이 함의하는 의미는 정당성을 인정받으며,", { x: 950, y: 5, z: 0 });
+createVerticalTextPlane("권위에 의해 승인된 결과로 여겨지므로,", { x: 954, y: 4, z: 0 });
+createVerticalTextPlane("언어는 집단에 의해 동의 받고,", { x: 958, y: 4, z: 0 });
 createVerticalTextPlane(" 받고,", { x: 962, y: 4, z: 0 });
 
 
